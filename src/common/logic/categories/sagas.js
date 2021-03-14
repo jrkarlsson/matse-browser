@@ -21,6 +21,8 @@ function * categoriesWatcher () {
   yield takeLatest(actions.categoriesRequest().type, categoriesWorker)
 }
 
-export default [
+const watchers = [
   categoriesWatcher
 ]
+
+export default watchers

@@ -5,14 +5,14 @@ import reset from 'styled-reset'
 import { Provider } from 'react-redux'
 
 import App from './app'
-import { hsla, CONCRETE, COAL } from './common/styling/colors'
+import { hsla, COAL, SNOW } from './common/styling/colors'
 import createStore from './common/logic/store'
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
 
   body {
-    background: ${hsla(CONCRETE)};
+    background: ${hsla(SNOW)};
     color: ${hsla(COAL)};
     font-family: 'Lato', 'sans-serif';
   }

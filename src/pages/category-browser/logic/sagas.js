@@ -1,9 +1,9 @@
-import { takeLatest, call, put, take } from 'redux-saga/effects'
+import { takeLatest, put, take } from 'redux-saga/effects'
 
 import * as actions from './actions'
 import * as categoryActions from '../../../common/logic/categories/actions'
 import * as productsActions from '../../../common/logic/products/actions'
-import { CATEGORIES_ROOT } from '../../../common/logic/categories/constants'
+import { CATEGORIES_ROOT } from '../../../common/logic/categories/utils'
 
 function * navigateWorker (action) {
   try {
@@ -26,6 +26,8 @@ function * navigateWatcher () {
   yield takeLatest(actions.navigateRequest().type, navigateWorker)
 }
 
-export default [
+const watchers = [
   navigateWatcher
 ]
+
+export default watchers

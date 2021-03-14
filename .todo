@@ -1,0 +1,11 @@
+- Fix CORS
+- Fix empty/loading states
+- Responsive UI
+- Memoized selectors
+- Api calls
+- Normalization
+  - Add parent to categories
+  - Add id path to categories
+- Navigation(Breadcrumbs)
+- Clean up nomenclature(singular/plural)
+- Error handling?

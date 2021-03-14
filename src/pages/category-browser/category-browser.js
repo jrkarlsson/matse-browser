@@ -1,30 +1,20 @@
+import styled from 'styled-components'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import { categoryById, childCategoriesById, isCategoryLoading } from '../../common/logic/categories/selectors'
-import { Grid, GridCell } from '../../common/components/grid'
 import { navigateRequest } from './logic/actions'
-import { percentageByOriginAndCategoryId, topFiveSold } from './logic/selectors'
-import TopFiveProductsGrid from './top-five-products'
-import { isProductsLoading } from '../../common/logic/products/selectors'
+import TopFiveProducts from './top-five-products'
+import SubCategories from './sub-categories'
+import OriginRange from './origin-range'
+import CurrentCategory from './current-category'
+import { isRoot } from '../../common/logic/categories/utils'
 
-const Category = ({ // Break out "CategoryStats"
-  name,
-  maxImmediateChildren,
-  count,
-  ...rest
-}) => (
-  <dl>
-    <dt>Namn:</dt>
-    <dd>{name}</dd>
-    <dt>Underkategorier:</dt>
-    <dd>{maxImmediateChildren}</dd>
-    <dt>Antal produkter:</dt>
-    <dd>{count}</dd>
-  </dl>
-)
-
+const CategoryBrowser = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto 1fr;
+  grid-gap: 64px;
+`
 const Categories = ({ match, ...rest }) => {
   const dispatch = useDispatch()
 
@@ -32,41 +22,18 @@ const Categories = ({ match, ...rest }) => {
     dispatch(navigateRequest(match.params.id))
   }, [dispatch, match])
 
-  const isLoading = useSelector(isCategoryLoading)
-  const currentCategory = useSelector(state => categoryById(state, match.params.id))
-  const subCategories = useSelector(state => childCategoriesById(state, match.params.id))
-  const topFiveProducts = useSelector(state => topFiveSold(state, match.params.id))
-  const _isProductsLoading = useSelector(isProductsLoading)
-  const percentSwedish = useSelector(state => percentageByOriginAndCategoryId(state, match.params.id, 'SE'))
-
-
+  const seOrigin = { countryOfOrigin: 'SE', translatedCountryName: 'Sverige' }
 
   return (
-    <div>
-      {isLoading
-        ? 'Loading...'
-        : <Category {...currentCategory} />}
+    <CategoryBrowser>
+      <CurrentCategory categoryId={match.params.id} />
 
-      {_isProductsLoading
-        ? 'Loadings...'
-        : `Andel svenska produkter: ${percentSwedish * 100}%`}
+      {!isRoot(match.params.id) && <OriginRange categoryId={match.params.id} origin={seOrigin} />}
 
-      {_isProductsLoading
-        ? 'Loading...'
-        : (
-          <TopFiveProductsGrid>
-            {topFiveProducts.map((product, key) => <GridCell key={key} title={product.name} image={product.imageUrl}>({product.soldCount})</GridCell>)}
-          </TopFiveProductsGrid>
-          )}
+      {!isRoot(match.params.id) && <TopFiveProducts categoryId={match.params.id} />}
 
-      {isLoading
-        ? 'Loading...'
-        : (
-          <Grid>
-            {subCategories.map((category, key) => <GridCell key={key} as={Link} to={`/${category.id}`} title={category.name}>({category.count})</GridCell>)}
-          </Grid>
-          )}
-    </div>
+      <SubCategories categoryId={match.params.id} />
+    </CategoryBrowser>
   )
 }
 

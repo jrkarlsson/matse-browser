@@ -1,4 +1,4 @@
-import { CATEGORIES_ROOT } from './constants'
+import { CATEGORIES_ROOT } from './utils'
 
 export const categoryById = (state, id) => {
   const result = state.entities.categories[id] ||

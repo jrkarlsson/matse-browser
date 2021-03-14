@@ -21,6 +21,8 @@ function * productsWatcher () {
   yield takeLatest(actions.productsRequest().type, productsWorker)
 }
 
-export default [
+const watchers = [
   productsWatcher
 ]
+
+export default watchers
