@@ -1,26 +1,31 @@
-import { normalize } from 'normalizr'
-import { takeLatest, call, put } from 'redux-saga/effects'
+import { takeLatest, call, put, take } from 'redux-saga/effects'
 
-import api from '../../../common/logic/api'
 import * as actions from './actions'
-import responseSchema from './schemas'
+import * as categoryActions from '../../../common/logic/categories/actions'
+import * as productsActions from '../../../common/logic/products/actions'
+import { CATEGORIES_ROOT } from '../../../common/logic/categories/constants'
 
-function * categoriesWorker (action) {
+function * navigateWorker (action) {
   try {
-    const response = yield call(api.getCategories)
-    const normalized = yield call(normalize, response.data, responseSchema)
+    yield put(categoryActions.categoriesRequest())
+    yield take(categoryActions.categoriesSuccess().type)
 
-    yield put(actions.categoriesSuccess(normalized))
+    if (action.payload && action.payload !== CATEGORIES_ROOT) {
+      yield put(productsActions.productsRequest(action.payload))
+      yield take(productsActions.productsSuccess().type)
+    }
+
+    yield put(actions.navigateSuccess(action.payload))
   } catch (error) {
     console.error(error)
-    yield put(actions.categoriesFailure(error))
+    yield put(actions.navigateFailure(action.payload, error))
   }
 }
 
-function * categoriesWatcher () {
-  yield takeLatest(actions.categoriesRequest().type, categoriesWorker)
+function * navigateWatcher () {
+  yield takeLatest(actions.navigateRequest().type, navigateWorker)
 }
 
 export default [
-  categoriesWatcher
+  navigateWatcher
 ]

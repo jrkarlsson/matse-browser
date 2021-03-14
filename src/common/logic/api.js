@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const getCategories = () => {
-  return axios.get('/category-tree.json')
+export const getCategories = () => {
+  return axios.get('/category-tree-mock.json')
 }
 
-export default {
-  getCategories
+export const getProductsByCategoryId = (id) => {
+  return axios.get(`/products-${id}-mock.json`)
 }

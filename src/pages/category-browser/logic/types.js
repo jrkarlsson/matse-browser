@@ -1,3 +1,3 @@
-export const CATEGORIES_REQUEST = 'categories/request'
-export const CATEGORIES_SUCCESS = 'categories/success'
-export const CATEGORIES_FAILURE = 'categories/failure'
+export const NAVIGATE_REQUEST = 'category-browser/navigate/request'
+export const NAVIGATE_SUCCESS = 'category-browser/navigate/success'
+export const NAVIGATE_FAILURE = 'category-browser/navigate/failure'

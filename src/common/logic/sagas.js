@@ -1,10 +1,14 @@
 import { all, spawn, call } from 'redux-saga/effects'
 
-import categoriesWatchers from '../../pages/category-browser/logic/sagas'
+import categoriesWatchers from './categories/sagas'
+import productsWatchers from './products/sagas'
+import categoryBrowserWatchers from '../../pages/category-browser/logic/sagas'
 
 function * rootSaga () {
   const sagas = [
-    ...categoriesWatchers
+    ...categoriesWatchers,
+    ...productsWatchers,
+    ...categoryBrowserWatchers
   ]
 
   yield all(sagas.map(saga =>

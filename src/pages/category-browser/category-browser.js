@@ -2,8 +2,12 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { categoriesRequest } from './logic/actions'
-import { categoryById, childCategoriesById, isCategoryLoading } from './logic/selectors'
+import { categoryById, childCategoriesById, isCategoryLoading } from '../../common/logic/categories/selectors'
+import { Grid, GridCell } from '../../common/components/grid'
+import { navigateRequest } from './logic/actions'
+import { percentageByOriginAndCategoryId, topFiveSold } from './logic/selectors'
+import TopFiveProductsGrid from './top-five-products'
+import { isProductsLoading } from '../../common/logic/products/selectors'
 
 const Category = ({ // Break out "CategoryStats"
   name,
@@ -25,12 +29,17 @@ const Categories = ({ match, ...rest }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(categoriesRequest())
-  }, [dispatch])
+    dispatch(navigateRequest(match.params.id))
+  }, [dispatch, match])
 
   const isLoading = useSelector(isCategoryLoading)
   const currentCategory = useSelector(state => categoryById(state, match.params.id))
   const subCategories = useSelector(state => childCategoriesById(state, match.params.id))
+  const topFiveProducts = useSelector(state => topFiveSold(state, match.params.id))
+  const _isProductsLoading = useSelector(isProductsLoading)
+  const percentSwedish = useSelector(state => percentageByOriginAndCategoryId(state, match.params.id, 'SE'))
+
+
 
   return (
     <div>
@@ -38,9 +47,25 @@ const Categories = ({ match, ...rest }) => {
         ? 'Loading...'
         : <Category {...currentCategory} />}
 
+      {_isProductsLoading
+        ? 'Loadings...'
+        : `Andel svenska produkter: ${percentSwedish * 100}%`}
+
+      {_isProductsLoading
+        ? 'Loading...'
+        : (
+          <TopFiveProductsGrid>
+            {topFiveProducts.map((product, key) => <GridCell key={key} title={product.name} image={product.imageUrl}>({product.soldCount})</GridCell>)}
+          </TopFiveProductsGrid>
+          )}
+
       {isLoading
         ? 'Loading...'
-        : <ul>{subCategories.map((category, key) => <li key={key}><Link to={`/${category.id}`}>{category.name}({category.count})</Link></li>)}</ul>} {/* Break out and use generic grid instead */}
+        : (
+          <Grid>
+            {subCategories.map((category, key) => <GridCell key={key} as={Link} to={`/${category.id}`} title={category.name}>({category.count})</GridCell>)}
+          </Grid>
+          )}
     </div>
   )
 }

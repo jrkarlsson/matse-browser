@@ -1,21 +1,23 @@
-import { CATEGORIES_ROOT } from './constants'
+import { productsByCategoryId } from '../../../common/logic/products/selectors'
 
-export const categoryById = (state, id) => {
-  const result = state.entities.categories[id] ||
-  state.entities.categories[CATEGORIES_ROOT] ||
-  undefined
+export const percentageByOriginAndCategoryId = (state, categoryId, origin) => {
+  const products = productsByCategoryId(state, categoryId)
 
-  return result
+  if (!products.length) return 0
+
+  let count = 0
+
+  products.forEach(product => {
+    if (product.countryOfOrigin === origin) count++
+  })
+
+  return (count / products.length).toPrecision(2)
 }
 
-export const childCategoriesById = (state, id) => {
-  const currentCategory = categoryById(state, id)
+export const topFiveSold = (state, categoryId) => {
+  const products = productsByCategoryId(state, categoryId)
 
-  console.log(currentCategory)
+  products.sort((a, b) => a.soldCount > b.soldCount ? -1 : a.soldCount < b.soldCount ? 1 : 0)
 
-  return currentCategory
-    ? currentCategory.subCategories.map(id => state.entities.categories[id])
-    : []
+  return products.slice(0, 5)
 }
-
-export const isCategoryLoading = (state) => state.meta.categories.isLoading

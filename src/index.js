@@ -5,7 +5,7 @@ import reset from 'styled-reset'
 import { Provider } from 'react-redux'
 
 import App from './app'
-import { hsla, CONCRETE, COAL } from './styling/colors'
+import { hsla, CONCRETE, COAL } from './common/styling/colors'
 import createStore from './common/logic/store'
 
 const GlobalStyle = createGlobalStyle`

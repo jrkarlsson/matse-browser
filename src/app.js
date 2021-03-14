@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import { hsla, SAND, SNOW } from './styling/colors'
+import { hsla, SAND, SNOW } from './common/styling/colors'
 import Categories from './pages/category-browser/category-browser'
 
 const Bar = styled.div`

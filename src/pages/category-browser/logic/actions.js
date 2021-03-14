@@ -1,15 +1,16 @@
 import * as types from './types'
 
-export const categoriesRequest = () => ({
-  type: types.CATEGORIES_REQUEST
+export const navigateRequest = (id) => ({
+  type: types.NAVIGATE_REQUEST,
+  payload: id
 })
 
-export const categoriesSuccess = (data) => ({
-  type: types.CATEGORIES_SUCCESS,
-  payload: data
+export const navigateSuccess = (id) => ({
+  type: types.NAVIGATE_SUCCESS,
+  payload: id
 })
 
-export const categoriesFailure = (error) => ({
-  type: types.CATEGORIES_FAILURE,
+export const navigateFailure = (id, error) => ({
+  type: types.NAVIGATE_FAILURE,
   payload: error
 })

@@ -4,9 +4,8 @@ import * as actions from './actions'
 
 export const entitiesSlice = (state = {}, action) => {
   if (action.type === actions.categoriesSuccess().type) {
-    console.log('hit')
     return {
-      ...state,
+      // ...state, // Due to time constraints I'm just gonna go ahead and replace the state entirely just to be sure the state and backend is in sync
       ...action.payload.entities.categories
     }
   }
