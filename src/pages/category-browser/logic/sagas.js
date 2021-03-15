@@ -7,7 +7,7 @@ import { CATEGORIES_ROOT } from '../../../common/logic/categories/utils'
 
 function * navigateWorker (action) {
   try {
-    yield put(categoryActions.categoriesRequest())
+    yield put(categoryActions.categoriesRequest()) // This could be done better, see .todo about CategoryTree.
 
     if (action.payload && action.payload !== CATEGORIES_ROOT) {
       yield put(productsActions.productsRequest(action.payload))

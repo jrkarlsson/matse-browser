@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
 import { hsla, WHITE, COAL, SNOW, ASH } from '../styling/colors'
+import Skeleton from './skeleton'
 
 export const Container = styled.div` // Break out into generic grid
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 16px;
 `
 
@@ -69,6 +70,7 @@ const Header = styled.h1`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.4;
 `
 
 const Body = styled.p`
@@ -86,4 +88,13 @@ export const GridCell = ({ header, children, as: tag, figure, ...rest }) => (
     <Header>{header}</Header>
     <Body>{children}</Body>
   </Item>
+)
+
+export const GridCellSkeleton = () => (
+  <GridCell
+    header={<Skeleton height='100%' />}
+    figure={<Skeleton width='128px' height='128px' />}
+  >
+    <Skeleton height='100%' />
+  </GridCell>
 )

@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { H1 } from '../../common/components/header'
-import { categoryById } from '../../common/logic/categories/selectors'
+import Skeleton from '../../common/components/skeleton'
+import { categoryById, isCategoryLoading } from '../../common/logic/categories/selectors'
 import { ASH, COAL, hsla } from '../../common/styling/colors'
 
 const CategoryName = styled(H1)`
@@ -45,9 +46,19 @@ const Stat = styled(StatComponent)`
 
 const CurrentCategory = ({ categoryId }) => {
   const currentCategory = useSelector(state => categoryById(state, categoryId))
+  const isLoading = useSelector(isCategoryLoading)
 
-  return currentCategory
+  return (isLoading || !currentCategory)
     ? (
+      <div>
+        <CategoryName><Skeleton darker width='50%' height='64px' /></CategoryName>
+        <Stats>
+          <Stat label='Underkategorier' value={<Skeleton darker height='34px' />} />
+          <Stat label='Antal produkter' value={<Skeleton darker height='34px' />} />
+        </Stats>
+      </div>
+      )
+    : (
       <div>
         <CategoryName>{currentCategory.name}</CategoryName>
         <Stats>
@@ -56,7 +67,6 @@ const CurrentCategory = ({ categoryId }) => {
         </Stats>
       </div>
       )
-    : null
 }
 
 export default CurrentCategory

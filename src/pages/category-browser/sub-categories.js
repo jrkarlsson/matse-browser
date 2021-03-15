@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { Grid, GridCell } from '../../common/components/grid'
+import { Grid, GridCell, GridCellSkeleton } from '../../common/components/grid'
 import { childCategoriesById, isCategoryLoading } from '../../common/logic/categories/selectors'
 import FolderIcon from '../../common/components/FolderIcon'
 import { H1 } from '../../common/components/header'
@@ -15,7 +15,7 @@ const SubCategories = ({ categoryId }) => {
       <H1>Underkategorier</H1>
       <Grid>
         {isLoading
-          ? 'Laddar...'
+          ? Array(10).fill(0).map((value, key) => <GridCellSkeleton key={key} />)
           : subCategories.map((category, key) =>
             <GridCell
               key={key}

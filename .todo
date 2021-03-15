@@ -1,5 +1,4 @@
-- Fix CORS (not much to fix, use browser extension)
-- Fix empty/loading states
+# Todo
 - Responsive UI
 - Memoized selectors
 - Api calls
@@ -9,3 +8,13 @@
 - Navigation(Breadcrumbs)
 - Clean up nomenclature(singular/plural)
 - Error handling?
+
+# Fixed
+- Fix CORS (not much to fix, use browser extension to circumvent or enable the mocks in api.js)
+- Fix empty/loading states (Loading states atleast)
+
+
+# CategoryTree
+It is a bit odd to load the entire tree, maybe there are use cases that I don't see. But I don't think most users will explore
+the entire tree fully, thus it would be better to only load the categories the user is interested in.
+Either that or load it once and then handle any potential sync issues when the tree in backend diverge from the one in the state.

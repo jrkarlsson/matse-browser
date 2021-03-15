@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-import { hsla, SNOW } from '../styling/colors'
+import { CONCRETE, hsla, SNOW } from '../styling/colors'
 
-export const Container = styled.span` // Break out into generic grid
+export const Container = styled.span`
   display: inline-flex;
-  background: ${hsla(SNOW)};
+  background: ${props => props.darker ? hsla(CONCRETE) : hsla(SNOW)};
   width: ${props => props.width};
   height: ${props => props.height};
 `
-const Skeleton = ({ width = '100%', height = '100%' }) => <Container width={width} height={height} />
+const Skeleton = ({ width = '100%', height = '100%', darker = false }) => <Container darker={darker} width={width} height={height} />
 
 export default Skeleton
