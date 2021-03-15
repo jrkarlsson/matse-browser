@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 
 import { COAL, hsla, SUNBURST, WHITE } from './common/styling/colors'
 import Categories from './pages/category-browser/category-browser'
+import { responsive } from './common/styling/responsive'
 
 const TopBar = styled.div`
   height: 64px;
@@ -18,7 +19,7 @@ const TopBar = styled.div`
 const Logo = styled.div`
   width: 125px;
   height: 33px;
-  background-image: url('https://www.mat.se/images/categ-spritesheet__v1615298468684.png');
+  background-image: url('https://www.mat.se/images/categ-spritesheet__v1615812159945.png');
   background-position: -2px -417px;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -27,12 +28,18 @@ const Logo = styled.div`
 const Main = styled.main`
   display: flex;
   justify-content: center;
-  margin-top: 64px;
+  padding: 16px;
+  margin-top: 32px;
 
   > * {
     max-width: 1200px;
     width: 1200px;
   }
+
+  ${responsive.desktop`
+    padding: 0;
+    margin-top: 64px;
+  `}
 
 `
 

@@ -1,7 +1,5 @@
 # Todo
-- Responsive UI
 - Memoized selectors
-- Api calls
 - Normalization
   - Add parent to categories
   - Add id path to categories
@@ -10,6 +8,8 @@
 - Error handling?
 
 # Fixed
+- Responsive UI
+- Api calls
 - Fix CORS (not much to fix, use browser extension to circumvent or enable the mocks in api.js)
 - Fix empty/loading states (Loading states atleast)
 

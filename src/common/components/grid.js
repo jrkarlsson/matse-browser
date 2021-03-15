@@ -1,22 +1,27 @@
 import styled from 'styled-components'
 
 import { hsla, WHITE, COAL, SNOW, ASH } from '../styling/colors'
+import { responsive } from '../styling/responsive'
 import Skeleton from './skeleton'
 
 export const Container = styled.div` // Break out into generic grid
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 16px;
+  grid-gap: 8px;
+  grid-template-columns: 1fr;
+
+  ${responsive.desktop`
+    grid-gap: 16px;
+    grid-template-columns: repeat(5, 1fr);
+  `}
 `
 
 export const Item = styled.div` // Break out into generic grid cell
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto auto;
-  grid-gap: 4px;
-  justify-items: center;
+  grid-template-columns: 48px auto 25%;
+  grid-template-rows: 48px;
+  grid-gap: 8px;
+  align-items: center;
   border-radius: 6px;
-  height: 200px;
   padding: 16px;
   overflow: hidden;
   background: ${hsla(WHITE)};
@@ -26,6 +31,14 @@ export const Item = styled.div` // Break out into generic grid cell
   -webkit-font-smoothing: subpixel-antialiased;
 
   transition: box-shadow .1s ease-out, transform .1s ease-out;
+
+  ${responsive.desktop`
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto;
+    grid-gap: 4px;
+    justify-items: center;
+    height: 200px;
+  `}
 
   &:hover {
     box-shadow: 0 5px 10px ${hsla(COAL, 0.2)};
@@ -46,38 +59,57 @@ const Figure = styled.figure`
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: center;
   overflow: hidden;
-  width: 100%;
-  height: 100%;
-  margin: -16px;
+  height: 48px;
 
+
+  ${responsive.desktop`
+    width: 100%;
+    height: 100%;
+    margin: -16px;
+  `}
 
   > img, svg {
-    width: 50%;
     max-width: 150px;
-    height: auto;
     color: ${hsla(SNOW)};
+    width: auto;
+
+    ${responsive.desktop`
+      width: 50%;
+      height: auto;
+    `}
   }
+
+  
 `
 
 const Header = styled.h1`
-  font-size: 22px;
+  font-size: 18px;
   width: 100%;
-  text-align: center;
   font-weight: bold;
   color: ${hsla(COAL)};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.4;
+
+  ${responsive.desktop`
+    font-size: 22px;
+    text-align: center;
+  `}
 `
 
 const Body = styled.p`
   width: 100%;
   color: ${hsla(ASH)};
+  font-size: 14px;
   font-weight: bold;
-  text-align: center;
+  text-align: right;
+
+  ${responsive.desktop`
+    text-align: center;
+    font-size: 16px;
+  `}
 `
 
 export const Grid = ({ children }) => <Container>{children}</Container>
@@ -92,9 +124,9 @@ export const GridCell = ({ header, children, as: tag, figure, ...rest }) => (
 
 export const GridCellSkeleton = () => (
   <GridCell
-    header={<Skeleton height='100%' />}
+    header={<Skeleton height='1em' />}
     figure={<Skeleton width='128px' height='128px' />}
   >
-    <Skeleton height='100%' />
+    <Skeleton height='1em' />
   </GridCell>
 )

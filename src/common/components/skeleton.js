@@ -8,6 +8,6 @@ export const Container = styled.span`
   width: ${props => props.width};
   height: ${props => props.height};
 `
-const Skeleton = ({ width = '100%', height = '100%', darker = false }) => <Container darker={darker} width={width} height={height} />
+const Skeleton = ({ width = '100%', height = '1em', darker = false }) => <Container darker={darker} width={width} height={height} />
 
 export default Skeleton
