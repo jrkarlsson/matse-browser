@@ -2,7 +2,7 @@ import { css } from 'styled-components'
 
 export const breakpoints = {
   mobile: '480px',
-  desktop: '1200px'
+  desktop: '1024px'
 }
 
 export const responsive = Object.keys(breakpoints).reduce(

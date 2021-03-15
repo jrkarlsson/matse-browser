@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom'
 import { COAL, hsla, SUNBURST, WHITE } from './common/styling/colors'
 import Categories from './pages/category-browser/category-browser'
 import { responsive } from './common/styling/responsive'
+import ScrollToTop from './common/components/scroll-top'
 
 const TopBar = styled.div`
   height: 64px;
@@ -51,6 +52,7 @@ const Brand = () => {
 
 const App = () => (
   <BrowserRouter>
+    <ScrollToTop />
     <TopBar><Brand /></TopBar>
     <Main>
       <Switch>
