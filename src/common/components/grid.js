@@ -11,22 +11,24 @@ export const Container = styled.div` // Break out into generic grid
 export const Item = styled.div` // Break out into generic grid cell
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 75% 1fr 1fr;
+  grid-template-rows: 1fr auto auto;
+  grid-gap: 4px;
   justify-items: center;
   border-radius: 6px;
-  height: 250px;
+  height: 200px;
   padding: 16px;
   overflow: hidden;
   background: ${hsla(WHITE)};
   text-decoration: none;
   box-shadow: 0 3px 5px ${hsla(COAL, 0.1)};
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 
-
-  transition: box-shadow .15s ease-out, transform .15s ease-out;
+  transition: box-shadow .1s ease-out, transform .1s ease-out;
 
   &:hover {
     box-shadow: 0 5px 10px ${hsla(COAL, 0.2)};
-    transform: scale(1.01);
+    transform: translateY(-1%);
     transform-origin: bottom center;
   }
 
@@ -43,8 +45,6 @@ const Figure = styled.figure`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: rgb(200,62,112);
-  background: linear-gradient(194deg, rgba(200,62,112,1) 0%, rgba(254,129,55,1) 64%, rgba(252,234,156,1) 100%);  */
   align-self: center;
   overflow: hidden;
   width: 100%;
@@ -72,8 +72,10 @@ const Header = styled.h1`
 `
 
 const Body = styled.p`
+  width: 100%;
   color: ${hsla(ASH)};
   font-weight: bold;
+  text-align: center;
 `
 
 export const Grid = ({ children }) => <Container>{children}</Container>

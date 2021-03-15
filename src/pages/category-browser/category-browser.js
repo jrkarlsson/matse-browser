@@ -15,24 +15,24 @@ const CategoryBrowser = styled.div`
   grid-template-rows: auto auto auto 1fr;
   grid-gap: 64px;
 `
-const Categories = ({ match, ...rest }) => {
+const Categories = ({ match: { params: { id } }, ...rest }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(navigateRequest(match.params.id))
-  }, [dispatch, match])
+    dispatch(navigateRequest(id))
+  }, [dispatch, id])
 
   const seOrigin = { countryOfOrigin: 'SE', translatedCountryName: 'Sverige' }
 
   return (
     <CategoryBrowser>
-      <CurrentCategory categoryId={match.params.id} />
+      <CurrentCategory categoryId={id} />
 
-      {!isRoot(match.params.id) && <OriginRange categoryId={match.params.id} origin={seOrigin} />}
+      {!isRoot(id) && <OriginRange categoryId={id} origin={seOrigin} />}
 
-      {!isRoot(match.params.id) && <TopFiveProducts categoryId={match.params.id} />}
+      {!isRoot(id) && <TopFiveProducts categoryId={id} />}
 
-      <SubCategories categoryId={match.params.id} />
+      <SubCategories categoryId={id} />
     </CategoryBrowser>
   )
 }

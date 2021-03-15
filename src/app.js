@@ -30,7 +30,8 @@ const Main = styled.main`
   margin-top: 64px;
 
   > * {
-    max-width: 1180px;
+    max-width: 1200px;
+    width: 1200px;
   }
 
 `

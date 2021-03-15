@@ -1,4 +1,4 @@
-- Fix CORS
+- Fix CORS (not much to fix, use browser extension)
 - Fix empty/loading states
 - Responsive UI
 - Memoized selectors
